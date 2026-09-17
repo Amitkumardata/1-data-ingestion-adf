@@ -1,55 +1,84 @@
-# Tittle: P-2-Retail-Analytics-Data-Modernization
- "Hybrid Retail Data Modernization and Cloud Migration Platform"
+# Hybrid Retail Data Modernization and Cloud Migration Platform
 
-Problem:
-"A retail supply Chain dataset track the product movement, orders and sales performance from manufactured to end customer: Multiple Pipeline were failed every night 
-No automation for monitoring data received once in a week due to data analytics team analyze blindly and assume no accurate data
+## Project Overview
 
-Overview
-Designed and Implement a hybrid retail data platform integrating on-prem ERP,POS and supply chain system with azure cloud service for centerlized analytics scalable processing and enterprises reporting . Build modern data pipeline and cloud based transformation frameworks enabling efficient reporting and operational Insight
+This project focuses on modernizing a retail analytics platform by integrating on-premise ERP, POS, and supply chain systems with Azure cloud services. The goal is to centralize operational and sales data, improve ingestion reliability, standardize transformations, and enable faster, more trusted analytics.
 
-Medallion Architecture: 
-Show the Bronze -> Silver -> Gold diagram and List the tools you used 
+## Business Problem
 
-TECH STACK:
-AZURE DATA FACTORY: Ingested data from source system to landing moved into ADLS gen 2 
-AZURE DATABRICKS: Data transformation created medallion Architecture
-|__My Organization
-|    |-Compute
-|       |--volume 
-|           |--lives raw data
-|  
-| |_TABLES/
-|    |--Silver_layer
-|    |-- Gold layer
+The retail organization was receiving weekly supply-chain and sales data across multiple sources, but the ingestion pipelines were unstable and reporting teams were analyzing inconsistent and incomplete data. Daily operations required a reliable ingestion process, standardized data quality checks, and a scalable cloud-based modern data platform.
 
-HOW TO RUN (the important one)
-   Step-by-step commands:
-      python src/bronze/ingest.py
-      python src/silver/clean.py
-      python src/gold/transform.py
-      python src/run_pipeline.py
+## Solution Architecture
 
-RESULTS (numbers - from Day 10)
-   Before/after optimization numbers, row counts,
-   flagged transactions found. NUMBERS make it strong.
+The solution uses a hybrid data modernization approach across multiple layers:
 
-   CHALLENGES & TRADE-OFFS (honest)
-   -The numeric columns like sales and Quanity data rows store string type dificult to calculate then to_cast(Double) to convert the data type from string to numeric float
-   - create quarantine folder to store  irrelevant data like negative transaction amount invalid data null values
-   "The pipeline was slow because it looped row by
-   row; I fixed it with vectorization, cutting runtime
-   from 27s to 3s."
+- Azure Data Factory for ingestion
+- ADLS Gen2 for storage
+- PySpark for transformation
+- Medallion architecture to structure data into Bronze, Silver, and Gold
+- Azure-based analytics platform for reporting and decision-making
 
-   Repository Structure
-   '''
-  |__data/
-  | |-bronze\   # Raw ingestion data 
-  | |-silver\    # Cleaned & structure data
-  | |-gold\      # Organized business ready data for report
-  |
-  |__Notebooks/
-  | |-Ingestion
-  | |-Cleaning.ipynb
-      
+## Medallion Architecture
 
+Bronze -> Silver -> Gold
+
+- Bronze: raw and ingested data
+- Silver: cleaned, validated, and standardized data
+- Gold: business-ready analytical data for dashboards and reporting
+
+## Tech Stack
+
+- Azure Data Factory (ADF)
+- Azure Data Lake Storage Gen2
+- PySpark
+- Databricks or notebook-based processing
+- Power BI / analytics layer (planned)
+
+## Repository Structure
+
+```text
+1-data-ingestion-adf/
+├── ingestion/
+│   ├── README.md
+│   └── pipeline-notes/
+├── medallion-architecture/
+│   ├── README.md
+│   └── BRONZE_TO_SILVER.md
+├── notebooks/
+│   └── README.md
+├── docs/
+│   └── README.md
+├── README.md
+└── .gitignore
+```
+
+## Current Progress
+
+- ADF ingestion pipeline designed and documented
+- Source-to-landing data movement configured
+- Bronze-to-Silver transformation documented
+- Data quality and quarantine handling introduced
+- Validation and profiling checklist in progress
+
+## Key Challenges Solved
+
+- Mixed data types in raw data, especially numeric fields stored as strings
+- Inconsistent column naming and formatting
+- Null and invalid records in source data
+- Duplicate records and data quality issues
+- Need for quarantine records to isolate bad data
+
+## Recommended GitHub Repository Name
+
+The recommended repo name for this project is:
+
+`hybrid-retail-analytics-modernization`
+
+This is the name that best matches the portfolio project and the domain focus of retail analytics and modernization.
+
+## Next Steps
+
+- Continue Bronze-to-Silver documentation
+- Add data profiling output and file-level checks
+- Prepare Silver-to-Gold transformation notes
+- Add operational runbook and troubleshooting documentation
